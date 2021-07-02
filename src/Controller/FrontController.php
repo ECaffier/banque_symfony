@@ -41,12 +41,21 @@ class FrontController extends AbstractController
         $form = $this->createForm(CreateAccountType::class, $account);
         $form->handleRequest($request);
 
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($account);
-        $entityManager->flush();
+        if($form->isSubmitted() && $form->isValid()){
+            $account->setDateCreation(new \DateTime());
+            $account->setType($account->getType());
+            $account->setAmount($account->getAmount());
+            $account->setAccountNumber($account->getAccountNumber());
+            $account->setUser($this->getUser());
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($account);
+            $entityManager->flush();
+        }   
+
 
         return $this->render('createAccount/createAccount.html.twig',[
-            'registrationForm' => $form->createView(),
+            'form' => $form->createView(),
         ]);
     }
 }
