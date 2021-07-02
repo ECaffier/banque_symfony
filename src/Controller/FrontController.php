@@ -4,10 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Account;
 use App\Entity\User;
+use App\Entity\Operation;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\AccountRepository;
+use App\Repository\OperationRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use App\Form\CreateAccountType;
 
@@ -55,6 +58,24 @@ class FrontController extends AbstractController
 
         return $this->render('createAccount/createAccount.html.twig',[
             'form' => $form->createView(),
+        ]);
+    }
+
+
+
+    /**
+     * @Route("front/single/{id}", name="single", requirements={"id"="\d+"})
+     */
+    public function single(int $id=1, AccountRepository $accountRepository): Response
+    {
+        $account = $accountRepository->find($id);
+
+        $operation = new Operation;
+        
+
+        return $this->render('front/single.html.twig', [
+            'account' => $account,
+            'operation'=> $operation,
         ]);
     }
 }

@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Banque{% endblock %}
+
+{% block body %}
+
+{% if app.user %}
+    <div class="my-2">
+        <a href="{{ path('app_logout') }}" class="btn btn-dark">Se déconnecter</a> 
+    </div>
+          
+        <div class="text-center">
+          <p>Bonjour {{ app.user.firstname }} {{ app.user.lastname }}</p>
+        </div>
+    {% endif %}
+<div class="container text-center" >    
+    <h2>Vos Comptes bancaires</h2>
+    
+    <div class="row " >
+        <div class="col-4 py-5">
+            <div class="card text-center" style="width: 18rem;">
+                <div class="card-header"> 
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">type de compte : {{account.type}}</li>
+                        <li class="list-group-item">numéro de compte : {{account.accountnumber}}</li>
+                        <li class="list-group-item">nom : {{account.user.firstname}}</li>
+                        <li class="list-group-item">prenom : {{account.user.lastname}}</li>
+                        <li class="list-group-item">solde : {{account.amount}}€</li>
+                        <li class="list-group-item">crée le : {{account.datecreation|date('d/m/Y')}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% for operation in account.operations %}
+<div class="row " >
+        <div class="col-4 py-5">
+            <div class="card text-center" style="width: 18rem;">
+                <div class="card-header"> 
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><dt>dernière opération</dt></li>
+                        <li class="list-group-item">nature de l'opération : {{operation.operationtype}}</li>
+                        <li class="list-group-item">montant : {{operation.amount}}€</li>
+                        <li class="list-group-item">date: {{operation.dateoperation|date('d/m/Y')}} à {{operation.dateoperation|date('H:i')}}</li>
+                        <li class="list-group-item">libellé : {{operation.motif}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endfor %}
+{% endblock %}
