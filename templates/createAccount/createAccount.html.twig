@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un compte{% endblock %}
+
+{% block body %}
+    <h1 class="my-3">S'inscrire à notre banque</h1>
+
+    {{ form_start(createAccountForm) }}
+        {{ form_row(createAccountForm.date_creation, {
+            label: 'Date de création'
+        }) }}
+        {{ form_row(createAccountForm.type, {
+            label: 'Type de compte'
+        }) }}
+        {{ form_row(createAccountForm.amount, {
+            label: 'Montant'
+        }) }}
+        {{ form_row(createAccountForm.account_number, {
+            label: 'Numéro de compte'
+        }) }}
+
+        <button type="submit" class="btn btn-dark my-3">Créer le compte</button>
+    {{ form_end(createAccountForm) }}
+{% endblock %}
