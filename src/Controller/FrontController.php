@@ -44,12 +44,14 @@ class FrontController extends AbstractController
             $account->setDateCreation(new \DateTime());
             $account->setType($account->getType());
             $account->setAmount($account->getAmount());
-            $account->setAccountNumber($account->getAccountNumber());
+            $account->setAccountNumber(random_int(1111111, 9999999));
             $account->setUser($this->getUser());
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($account);
             $entityManager->flush();
+            
+            return $this->redirectToRoute('index');
         }   
 
 
