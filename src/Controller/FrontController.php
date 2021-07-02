@@ -32,7 +32,6 @@ class FrontController extends AbstractController
         ]);
     }
 
-<<<<<<< HEAD
     /**
      * @Route("/createAccount", name="createAccount")
      */
@@ -51,6 +50,4 @@ class FrontController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
     }
-=======
->>>>>>> a23fe911d0466e64bf878ac5f49ed997857e91c6
 }
