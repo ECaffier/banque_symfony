@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Account;
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,11 +24,15 @@ class FrontController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('front/index.html.twig', [
+        $accountRepository = $this->getDoctrine()->getRepository(Account::class);
+        $accounts = $accountRepository->findAll();
 
+        return $this->render('front/index.html.twig', [
+            'accounts' => $accounts,
         ]);
     }
 
+<<<<<<< HEAD
     /**
      * @Route("/createAccount", name="createAccount")
      */
@@ -45,4 +51,6 @@ class FrontController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
     }
+=======
+>>>>>>> a23fe911d0466e64bf878ac5f49ed997857e91c6
 }
