@@ -22,6 +22,7 @@ final class Version20210701093503 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE TABLE account (id INT AUTO_INCREMENT NOT NULL, date_creation DATETIME NOT NULL, type VARCHAR(255) NOT NULL, amount DOUBLE PRECISION NOT NULL, account_number INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE operation (id INT AUTO_INCREMENT NOT NULL, operation_type VARCHAR(255) NOT NULL, amount DOUBLE PRECISION NOT NULL, date_operation DATETIME NOT NULL, motif VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, firstname VARCHAR(255) NOT NULL, lastname VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
     }
 
     public function down(Schema $schema): void
@@ -29,5 +30,6 @@ final class Version20210701093503 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('DROP TABLE account');
         $this->addSql('DROP TABLE operation');
+        $this->addSql('DROP TABLE user');
     }
 }
