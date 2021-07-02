@@ -1,20 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello FrontController!{% endblock %}
+{% block title %}Banque{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Users/cafed/Desktop/Code/Site/Lab/banque_symfony/src/Controller/FrontController.php'|file_link(0) }}">src/Controller/FrontController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Users/cafed/Desktop/Code/Site/Lab/banque_symfony/templates/front/index.html.twig'|file_link(0) }}">templates/front/index.html.twig</a></code></li>
-    </ul>
+<h2>Vos Comptes bancaires</h2>
+{% for account in accounts %} 
+<div class="container" >
+    <div class="row" >
+        <div class="col-md-6 col-lg-6 py-5">
+            <div class="card  text-center  " style="width: 18rem;">
+                <div class="card-header mt-2"> 
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">type de compte : {{account.type}}</li>
+                        <li class="list-group-item">numéro de compte : {{account.accountnumber}}</li>
+                        <li class="list-group-item">solde : {{account.amount}}€</li>
+                        <li class="list-group-item">crée le : {{account.datecreation|date('d/m/Y')}}</li>
+                        <a href="#" class="btn btn-dark my-3">voir</a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+ {% endfor %}
 {% endblock %}
