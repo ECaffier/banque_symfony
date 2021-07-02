@@ -23,8 +23,7 @@ class FrontController extends AbstractController
      */
     public function index(): Response
     {
-        $accountRepository = $this->getDoctrine()->getRepository(Account::class);
-        $accounts = $accountRepository->findAll();
+        $accounts = $this->getUser()->getAccounts();
 
         return $this->render('front/index.html.twig', [
             'accounts' => $accounts,
