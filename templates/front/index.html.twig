@@ -1,13 +1,32 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}La banque des bg du 93{% endblock %}
+{% block title %}Banque{% endblock %}
 
 {% block body %}
-    {% if app.user %}
+
+{% if app.user %}
         <div class="my-3 ">
             Bonjour {{ app.user.firstname }} {{ app.user.lastname }} <a href="{{ path('app_logout') }}" class="btn btn-dark">Se déconnecter</a>
         </div>
     {% endif %}
-    <h2 class="my-3">Page d'acceuil</h2>
-   
+<h2>Vos Comptes bancaires</h2>
+{% for account in accounts %} 
+<div class="container" >
+    <div class="row" >
+        <div class="col-md-6 col-lg-6 py-5">
+            <div class="card text-center" style="width: 18rem;">
+                <div class="card-header mt-2"> 
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">type de compte : {{account.type}}</li>
+                        <li class="list-group-item">numéro de compte : {{account.accountnumber}}</li>
+                        <li class="list-group-item">solde : {{account.amount}}€</li>
+                        <li class="list-group-item">crée le : {{account.datecreation|date('d/m/Y')}}</li>
+                        <a href="#" class="btn btn-dark my-3">voir</a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ {% endfor %}
 {% endblock %}

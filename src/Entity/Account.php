@@ -37,6 +37,12 @@ class Account
      */
     private $account_number;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="accounts")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $User;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,6 +92,18 @@ class Account
     public function setAccountNumber(int $account_number): self
     {
         $this->account_number = $account_number;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->User;
+    }
+
+    public function setUser(?User $User): self
+    {
+        $this->User = $User;
 
         return $this;
     }
