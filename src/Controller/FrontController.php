@@ -83,11 +83,12 @@ class FrontController extends AbstractController
 
         }
     /**
-     * @Route("/operation", name="operation")
+     * @Route("/operation/{id)}", name="operation", requirements={"id"="\d+"})
      */
 
-    public function addoperation(Request $request): Response
+    public function addoperation( Request $request, OperationRepository $accountRepository, int $accountId): Response
     {
+        $account = new Account();
         $operation = new Operation();
         $form = $this->createForm(OperationType::class, $operation);
         // On traite les données soumises lors de la requêtes dans l'objet form
@@ -95,7 +96,10 @@ class FrontController extends AbstractController
         // Si on a soumis un formulaire et que tout est OK
         if($form->isSubmitted() && $form->isValid()) {
             $operation->setDateOperation(new \DateTime());
-            // On enregistre le nouveau sujet
+            $operation->setAccount($this->getAccount()->getOperation());
+            $account = $accountRepository->find($accountId);
+            $operation->setAccount($account);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($operation);
             // Attention les requêtes ne sont exécutées que lors du flush donc à ne pas oublier
@@ -105,7 +109,7 @@ class FrontController extends AbstractController
             
         }
         return $this->render('front/operation.html.twig', [
-            "form" => $form->createView() 
+            "form" => $form->createView(),
         ]);
     }
 }
