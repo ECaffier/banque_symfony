@@ -14,13 +14,14 @@
         </div>
     {% endif %}
 <div class="container text-center" >    
-    <h2>Vos Comptes bancaires</h2>
+    <h2>Détail du compte</h2>
     
     <div class="row " >
         <div class="col-4 py-5">
             <div class="card text-center" style="width: 18rem;">
                 <div class="card-header"> 
                     <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><dt>Votre compte</dt></li>
                         <li class="list-group-item">type de compte : {{account.type}}</li>
                         <li class="list-group-item">numéro de compte : {{account.accountnumber}}</li>
                         <li class="list-group-item">nom : {{account.user.firstname}}</li>
@@ -39,7 +40,7 @@
             <div class="card text-center" style="width: 18rem;">
                 <div class="card-header"> 
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><dt>dernière opération</dt></li>
+                        <li class="list-group-item"><dt>Dernière opération</dt></li>
                         <li class="list-group-item">nature de l'opération : {{operation.operationtype}}</li>
                         <li class="list-group-item">montant : {{operation.amount}}€</li>
                         <li class="list-group-item">date: {{operation.dateoperation|date('d/m/Y')}} à {{operation.dateoperation|date('H:i')}}</li>
@@ -50,7 +51,5 @@
         </div>
     </div>
 </div>
-
-
 {% endfor %}
 {% endblock %}
