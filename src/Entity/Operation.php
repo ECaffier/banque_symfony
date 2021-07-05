@@ -37,6 +37,12 @@ class Operation
      */
     private $motif;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=account::class, inversedBy="operations")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $Account;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,6 +92,18 @@ class Operation
     public function setMotif(string $motif): self
     {
         $this->motif = $motif;
+
+        return $this;
+    }
+
+    public function getAccount(): ?account
+    {
+        return $this->Account;
+    }
+
+    public function setAccount(?account $Account): self
+    {
+        $this->Account = $Account;
 
         return $this;
     }

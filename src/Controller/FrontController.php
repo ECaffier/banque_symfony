@@ -10,6 +10,8 @@ use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\AccountRepository;
+use App\Repository\OperationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
@@ -20,20 +22,18 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class FrontController extends AbstractController
 {
-    /**
+     /**
      * @Route("/", name="index")
      * @Route("/front", name="front")
      */
     public function index(): Response
     {
-        $accountRepository = $this->getDoctrine()->getRepository(Account::class);
-        $accounts = $accountRepository->findAll();
+        $accounts = $this->getUser()->getAccounts();
 
         return $this->render('front/index.html.twig', [
             'accounts' => $accounts,
         ]);
     }
-
     /**
      * @Route("/createAccount", name="createAccount")
      */
@@ -64,9 +64,28 @@ class FrontController extends AbstractController
         ]);
     }
 
+
+
+    /**
+     * @Route("front/single/{id}", name="single", requirements={"id"="\d+"})
+     */
+    public function single(int $id=1, AccountRepository $accountRepository): Response
+    {
+        $account = $accountRepository->find($id);
+
+        $operation = new Operation;
+        
+
+        return $this->render('front/single.html.twig', [
+            'account' => $account,
+            'operation'=> $operation,
+        ]);
+
+        }
     /**
      * @Route("/operation", name="operation")
      */
+
     public function addoperation(Request $request): Response
     {
         $operation = new Operation();
