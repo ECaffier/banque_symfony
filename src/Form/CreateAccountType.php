@@ -22,7 +22,6 @@ class CreateAccountType extends AbstractType
             ],
             ])
             ->add('amount')
-            ->add('account_number')
             ->add('enregistrer', SubmitType::class, [
                 "attr" => ["class" => "bg-dark text-white"],
             ])
