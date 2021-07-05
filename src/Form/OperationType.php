@@ -2,27 +2,31 @@
 
 namespace App\Form;
 
-use App\Entity\Account;
+use App\Entity\Operation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class CreateAccountType extends AbstractType
+class OperationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('type', ChoiceType::class, [
-            'choices' => [
-                'PEL' => 'PEL',
-                'Livret A' => 'Livret A',
-                'Courant' => 'Courant'
-            ],
+            ->add('operation_type',  ChoiceType::class, [
+                'choices'  => [
+                    'Dépot' => "Dépot",
+                    'Retrait' => "Retrait",
+                ]], null, [
+                "label" => "Type d'opération:",
+            ]) 
+            ->add('amount', null, [
+                "label" => "Montant :",
             ])
-            ->add('amount')
-            ->add('account_number')
+            ->add('motif', null, [
+                "label" => "Motif de l'opération :",
+            ])
             ->add('enregistrer', SubmitType::class, [
                 "attr" => ["class" => "bg-dark text-white"],
             ])
@@ -32,7 +36,7 @@ class CreateAccountType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Account::class,
+            'data_class' => Operation::class,
         ]);
     }
 }
