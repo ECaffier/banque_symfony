@@ -11,14 +11,39 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstname')
-            ->add('lastname')
+            ->add('firstname', TextType::class,[
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez entrer un prénom',
+                    ]),
+                    new Length([
+                        'min' => 2,
+                        'minMessage' => 'Veuillez entrer un prénom valide (2-30)',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 30,
+                    ]),
+                ]
+            ])
+            ->add('lastname', TextType::class,[
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez entrer un nom',
+                    ]),
+                    new Length([
+                        'min' => 2,
+                        'minMessage' => 'Veuillez entrer un nom valide (2-30)',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 30,
+                    ]),
+                ]
+            ])
             ->add('email')
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,

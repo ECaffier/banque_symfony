@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class CreateAccountType extends AbstractType
 {
@@ -21,7 +22,10 @@ class CreateAccountType extends AbstractType
                 'Courant' => 'Courant'
             ],
             ])
-            ->add('amount')
+            ->add('amount', IntegerType::class,
+            [
+                "attr" => ['min'=>50]
+            ])
             ->add('enregistrer', SubmitType::class, [
                 "attr" => ["class" => "bg-dark text-white"],
             ])
