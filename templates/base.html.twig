@@ -16,7 +16,9 @@
     </head>
     <body>
         {% include 'header.html.twig' %}
+        {% if app.user %}
         {% include 'nav.html.twig' %}
+        {% endif %}
         <main class = "container my-3">
             {% block body %}{% endblock %}
         </main>
