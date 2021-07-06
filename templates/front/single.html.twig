@@ -28,7 +28,7 @@
                         <li class="list-group-item">prenom : {{account.user.lastname}}</li>
                         <li class="list-group-item">solde : {{account.amount}}€</li>
                         <li class="list-group-item">crée le : {{account.datecreation|date('d/m/Y')}}</li>
-                        <li class="list-group-item"><a class="btn btn-dark" href="{{ path('operation', {accountId : account.id})}}">Operation</a> </li>
+                        <li class="list-group-item"><a class="btn btn-dark" href="{{ path('newOperation', {AccountId : account.id}) }}">Operation</a> </li>
                     </ul>
                 </div>
             </div>
