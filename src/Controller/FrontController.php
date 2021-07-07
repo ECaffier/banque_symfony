@@ -96,7 +96,8 @@ class FrontController extends AbstractController
         // Si on a soumis un formulaire et que tout est OK
         if($form->isSubmitted() && $form->isValid()) {
             $operation->setDateOperation(new \DateTime());
-            $operation->setAccount($account);           
+            $operation->setAccount($account);
+            //condition qui met à jour le montant du compte selon l'opération effectuée
            if($operation->getOperationType() == "Dépot") {
                $newamount = $amount + $operation->getAmount();
            } else {
