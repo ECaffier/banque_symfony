@@ -88,15 +88,22 @@ class FrontController extends AbstractController
     public function addoperation( Request $request, AccountRepository $AccountRepository, int $AccountId): Response
     {
         $operation = new Operation();
+        $account = $AccountRepository->find($AccountId);
+        $amount = $account->getAmount();      
         $form = $this->createForm(OperationType::class, $operation);
         // On traite les données soumises lors de la requêtes dans l'objet form
         $form->handleRequest($request);
         // Si on a soumis un formulaire et que tout est OK
         if($form->isSubmitted() && $form->isValid()) {
             $operation->setDateOperation(new \DateTime());
-            
-            $account = $AccountRepository->find($AccountId);
             $operation->setAccount($account);
+            //condition qui met à jour le montant du compte selon l'opération effectuée
+           if($operation->getOperationType() == "Dépot") {
+               $newamount = $amount + $operation->getAmount();
+           } else {
+               $newamount = $amount - $operation->getAmount();
+           } 
+            $account->setAmount($newamount);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($operation);
             // Attention les requêtes ne sont exécutées que lors du flush donc à ne pas oublier
@@ -108,5 +115,25 @@ class FrontController extends AbstractController
         return $this->render('front/operation.html.twig', [
             "form" => $form->createView(),
         ]);
+    }
+
+
+
+
+      /**
+     * @Route("/account/delete/{id}", name="deleteAccount", requirements={"id"="\d+"})
+     */
+    public function deleteAccount(int $id=1, AccountRepository $AccountRepository): Response
+    {
+        
+            $account = $AccountRepository->find($id);
+            
+            $account->setUser($this->getUser());
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($account);
+            $entityManager->flush();
+       
+        return $this->redirectToRoute('index');
+            
     }
 }

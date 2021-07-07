@@ -9,26 +9,27 @@
             Bonjour {{ app.user.firstname }} {{ app.user.lastname }} <a href="{{ path('app_logout') }}" class="btn btn-dark">Se déconnecter</a>
         </div>
     {% endif %}
-<div class="container text-center" >    
-    <h2>Vos Comptes bancaires</h2>
-    {% for account in accounts %} 
+<div class="container text-center" id="ind" >    
+    <h2 class="py-5">Vos Comptes bancaires</h2>
     <div class="row " >
-        <div class="col-4 py-5">
-            <div class="card text-center" style="width: 18rem;">
+    {% for account in accounts %} 
+        <div class="col-12 col-md-6 col-lg-4 my-2">
+            <div class="card text-center">
                 <div class="card-header"> 
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">type de compte : {{account.type}}</li>
-                        <li class="list-group-item">numéro de compte : {{account.accountnumber}}</li>
-                        <li class="list-group-item">nom : {{account.user.firstname}}</li>
-                        <li class="list-group-item">prenom : {{account.user.lastname}}</li>
-                        <li class="list-group-item">solde : {{account.amount}}€</li>
-                        <li class="list-group-item">crée le : {{account.datecreation|date('d/m/Y')}}</li>
-                        <a href="{{path('single', {id : account.id}) }}" class="btn btn-dark my-3">voir</a>
+                        <li class="list-group-item">{{account.type}}</li>
+                        <li class="list-group-item">Compte numéro {{account.accountnumber}}</li>
+                        <li class="list-group-item">Nom : {{account.user.firstname ~ ' ' ~ account.user.lastname}}</li>
+                        <li class="list-group-item">Solde : {{account.amount}}€</li>
+                        <li class="list-group-item">Créé le : {{account.datecreation|date('d/m/Y')}}</li>
+                        <li class="list-group-item"><a href="{{path("deleteAccount", {id : account.id})}}" class="btn btn-dark px-5">Clôturer</a></li>
+                        <li class="list-group-item"><a href="{{path('single', {id : account.id}) }}" class="btn btn-dark px-5">Voir</a></li>
                     </ul>
                 </div>
             </div>
         </div>
+     {% endfor %}   
     </div>
 </div>
- {% endfor %}
+ 
 {% endblock %}
