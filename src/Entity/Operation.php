@@ -38,10 +38,10 @@ class Operation
     private $motif;
 
     /**
-     * @ORM\ManyToOne(targetEntity=account::class, inversedBy="operations")
+     * @ORM\ManyToOne(targetEntity=Account::class, inversedBy="operations")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $Account;
+    private $account;
 
     public function getId(): ?int
     {
@@ -96,14 +96,14 @@ class Operation
         return $this;
     }
 
-    public function getAccount(): ?account
+    public function getAccount(): ?Account
     {
-        return $this->Account;
+        return $this->account;
     }
 
-    public function setAccount(?account $Account): self
+    public function setAccount(?Account $account): self
     {
-        $this->Account = $Account;
+        $this->account = $account;
 
         return $this;
     }

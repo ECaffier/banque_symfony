@@ -23,6 +23,7 @@
                         <li class="list-group-item">prenom : {{account.user.lastname}}</li>
                         <li class="list-group-item">solde : {{account.amount}}€</li>
                         <li class="list-group-item">crée le : {{account.datecreation|date('d/m/Y')}}</li>
+                        <a href="{{path("deleteAccount", {id : account.id})}}" class="btn btn-dark">Clôturer</a>
                         <a href="{{path('single', {id : account.id}) }}" class="btn btn-dark my-3">voir</a>
                     </ul>
                 </div>

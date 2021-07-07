@@ -46,7 +46,7 @@ class Account
     private $User;
 
     /**
-     * @ORM\OneToMany(targetEntity=Operation::class, mappedBy="Account")
+     * @ORM\OneToMany(targetEntity=Operation::class, mappedBy="account", orphanRemoval=true)
      */
     private $operations;
 
